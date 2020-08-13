@@ -74,19 +74,22 @@ buy_list = []
 
 while True:
     for index, row in df.iterrows():
+        time.sleep(1.2)
         sid = df.at[index, 'sid']
         name = df.at[index, 'name']
         ma_5 = df.at[index, 'last_day_5ma']
         ma_10 = df.at[index, 'last_day_10ma']
         ma_20 = df.at[index, 'last_day_20ma']
 
-        stock_df = intraday.chart(symbolId=sid, apiToken=FUGLE_API_TOKEN)
-        price = stock_df['close'].values[-1]
+        try:
+            print("Checking {} {}".format(sid, name))
+            stock_df = intraday.chart(symbolId=sid, apiToken=FUGLE_API_TOKEN)
+            price = stock_df['close'].values[-1]
+            if price > max([ma_5, ma_10, ma_20]):
+                if sid not in buy_list:
+                    buy_list.append(sid)
+                    text = "Best stock: {} {}".format(sid, name)
+                    sender.send_message(text)
 
-        if price > max([ma_5, ma_10, ma_20]):
-            if sid not in buy_list:
-                buy_list.append(sid)
-                text = "Best stock: {} {}".format(sid, name)
-                sender.send_message(text)
-
-        time.sleep(1.2)
+        except KeyError:
+            continue
