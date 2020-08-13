@@ -80,10 +80,8 @@ while True:
         ma_10 = df.at[index, 'last_day_10ma']
         ma_20 = df.at[index, 'last_day_20ma']
 
-        # stock_df = intraday.chart(symbolId=sid, apiToken=api_token)
-        # price = stock_df['close'].values[-1]
-
-        price = 50
+        stock_df = intraday.chart(symbolId=sid, apiToken=FUGLE_API_TOKEN)
+        price = stock_df['close'].values[-1]
 
         if price > max([ma_5, ma_10, ma_20]):
             if sid not in buy_list:
