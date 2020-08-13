@@ -88,8 +88,9 @@ while True:
             if price > max([ma_5, ma_10, ma_20]):
                 if sid not in buy_list:
                     buy_list.append(sid)
-                    text = "Best stock: {} {}".format(sid, name)
+                    text = "Best stock: {} {} price now: {}".format(sid, name, price)
                     sender.send_message(text)
 
         except KeyError:
+            print("An error occur: {} {}".format(sid, name))
             continue
