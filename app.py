@@ -1,7 +1,4 @@
 from flask import Flask, request
-import newrelic.agent
-
-newrelic.agent.initialize('newrelic.ini')
 
 app = Flask(__name__)
 
