@@ -36,6 +36,10 @@ def parse_csv(csv_file):
             if today_limit < max(all_ma):
                 continue
 
+            # 要漲超過 8% 才能高於均價 (當沖不追高)
+            if last_day_closing * 1.08 < max(all_ma):
+                continue
+
             # 最低價還沒掉破均線
             if last_day_low > min(all_ma):
                 continue
@@ -88,7 +92,7 @@ while True:
             if price > max([ma_5, ma_10, ma_20]):
                 if sid not in buy_list:
                     buy_list.append(sid)
-                    text = "Best stock: {} {} price now: {}".format(sid, name, price)
+                    text = "突破均線糾結: {} {} price now: {}".format(sid, name, price)
                     sender.send_message(text)
 
         except KeyError:
