@@ -67,6 +67,7 @@ print("Total tpex stock: {}".format(len(tpex_list)))
 
 columns_name = ["sid", "name", "last_day_low",
                 "last_day_5ma", "last_day_10ma", "last_day_20ma"]
+pd.set_option('display.max_rows', None)
 df = pd.DataFrame(stocks, columns=columns_name)
 
 print(df)
