@@ -47,11 +47,13 @@ def parse_csv(csv_file):
             if last_day_high > max(all_ma):
                 continue
             # 成交量太小
-            if last_day_volume < 1200:
+            if last_day_volume < 1000:
                 continue
-
-            stock = [sid, name, last_day_low,
-                     last_day_5ma, last_day_10ma, last_day_20ma]
+            # 距離 max(all_ma) 還需要漲幾%
+            distance = ((max(all_ma) / last_day_closing) - 1) * 100.0
+            distance_str = "{:.2f}".format(distance)
+            stock = [sid, name, last_day_closing,
+                     last_day_5ma, last_day_10ma, last_day_20ma, distance_str]
             stocks.append(stock)
 
         return stocks
@@ -65,8 +67,8 @@ stocks = twse_list + tpex_list
 print("Total twse stock: {}".format(len(twse_list)))
 print("Total tpex stock: {}".format(len(tpex_list)))
 
-columns_name = ["sid", "name", "last_day_low",
-                "last_day_5ma", "last_day_10ma", "last_day_20ma"]
+columns_name = ["sid", "name", "close",
+                "5ma", "10ma", "20ma", "distance"]
 pd.set_option('display.max_rows', None)
 df = pd.DataFrame(stocks, columns=columns_name)
 
