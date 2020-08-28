@@ -84,9 +84,9 @@ while True:
         time.sleep(1.2)
         sid = df.at[index, 'sid']
         name = df.at[index, 'name']
-        ma_5 = df.at[index, 'last_day_5ma']
-        ma_10 = df.at[index, 'last_day_10ma']
-        ma_20 = df.at[index, 'last_day_20ma']
+        ma_5 = df.at[index, '5ma']
+        ma_10 = df.at[index, '10ma']
+        ma_20 = df.at[index, '20ma']
 
         try:
             print("Checking {} {}".format(sid, name))
