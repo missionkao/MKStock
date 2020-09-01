@@ -49,6 +49,11 @@ def parse_csv(csv_file):
             # 成交量太小
             if last_day_volume < 1000:
                 continue
+
+            # 均線糾結 4%
+            if max(all_ma) / min(all_ma) > 1.04:
+                continue
+
             # 距離 max(all_ma) 還需要漲幾%
             distance = ((max(all_ma) / last_day_closing) - 1) * 100.0
             distance_str = "{:.2f}".format(distance)
